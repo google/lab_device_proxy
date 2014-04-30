@@ -1,0 +1,31 @@
+# Upstart configuration for the lab device proxy.
+
+# Google BSD license http://code.google.com/google_bsd_license.html
+# Copyright 2014 Google Inc. wrightt@google.com
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+console log
+
+# Run as user & group "nobody".
+setuid nobody
+setgid nobody
+
+respawn
+respawn limit 10 15
+
+# Our commands (adb, idevice*) should be in /usr/local/bin/
+env PATH=/usr/local/bin:/bin:/usr/bin
+
+# In order for the adb server to be able to read the vendor key,
+# it first needs to be able to create a .android folder inside of $HOME,
+# so HOME needs to be defined somewhere that can be written by a process
+# with a uid of nobody.
+# We'll create a folder in /tmp for this purpose.
+env HOME=/tmp/lab_device_proxy
+pre-start script
+  mkdir -p $HOME
+end script
+
+exec /usr/local/bin/lab_device_proxy_server.py

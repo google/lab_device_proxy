@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# PROVIDE: lab_device_proxy
+# REQUIRE: DAEMON
+# KEYWORD: nojail
+
+# Google BSD license http://code.google.com/google_bsd_license.html
+# Copyright 2014 Google Inc. wrightt@google.com
+
+. /etc/rc.subr
+
+name="lab_device_proxy"
+procname="/usr/local/bin/lab_device_proxy_server.py"
+command_interpreter="python2.7"
+start_cmd="ldp_start"
+
+ldp_start()
+{
+  su -m nobody -c 'sh -c "PATH='$(
+      dirname $procname)':/usr/local/bin '$(basename $procname)' &"'
+}
+
+load_rc_config $name
+run_rc_command "$1"

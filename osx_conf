@@ -1,0 +1,33 @@
+<!-- 
+launchctl configuration for the lab device proxy.
+
+Google BSD license http://code.google.com/google_bsd_license.html
+Copyright 2014 Google Inc. wrightt@google.com
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.google.lab-device-proxy</string>
+  <key>ProgramArguments</key>
+    <array>
+    <string>/usr/local/bin/lab_device_proxy_server.py</string>
+    </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</string>
+  </dict>
+  <key>UserName</key>
+  <string>nobody</string>
+  <key>GroupName</key>
+  <string>staff</string>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/var/log/lab_device_proxy/server.log</string>
+  <key>StandardErrorPath</key>
+  <string>/var/log/lab_device_proxy/server.log</string>
+</dict>
+</plist>
